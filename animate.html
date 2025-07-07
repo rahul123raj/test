@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animations Example</title>
+    
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+    <style>
+        /* CSS Animation - Slide from Left on Page Load */
+        @keyframes slideFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .css-animation {
+            opacity: 0;
+            animation: slideFromLeft 1s ease-in-out forwards;
+            animation-delay: 0.5s;
+            background-color: lightblue;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        /* Intersection Observer - Slide from Right on Scroll */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease-in-out;
+            background-color: lightgreen;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* AOS Example */
+        .aos-box {
+            background-color: lightcoral;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        /* GSAP Animation */
+        .gsap-box {
+            background-color: lightgoldenrodyellow;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Animation Examples</h1>
+
+    <!-- CSS Animation Example -->
+    <div class="css-animation">CSS Animation (Slide from Left on Page Load)</div>
+
+    <!-- Intersection Observer Animation Example -->
+    <div class="scroll-animation">JS Scroll Animation (Slide from Right on Scroll)</div>
+
+    <!-- AOS Library Animation Example -->
+    <div class="aos-box" data-aos="fade-up" data-aos-delay="300">
+        AOS Animation (Fade Up on Scroll)
+    </div>
+
+    <!-- GSAP Animation Example -->
+    <div class="gsap-box">GSAP Animation (Slide from Left on Page Load)</div>
+
+    <!-- Scripts -->
+    <!-- AOS Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <!-- Intersection Observer (Scroll Animation) -->
+    <script>
+        const elements = document.querySelectorAll('.scroll-animation');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        elements.forEach(el => observer.observe(el));
+    </script>
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        gsap.from(".gsap-box", { x: -100, opacity: 0, duration: 1.5, delay: 0.5 });
+    </script>
+
+</body>
+</html>
